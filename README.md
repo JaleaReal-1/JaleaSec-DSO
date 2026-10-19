@@ -36,7 +36,7 @@ La guía para crear el proyecto Pages y transferir el dominio está en [Migraci�
 
 ## Oferta y contacto
 
-Catálogo y precios en `apps/web/data/catalog.js`; se conservan los ocho IDs y las referencias actuales sujetas a alcance. Web desde S/ 300 y desarrollo Android básico desde S/ 350. Portafolio a cotizar. Plazos y soporte se acuerdan por escrito; dominio, hosting e integraciones se evalúan aparte.
+Paquetes, precios y promoción Founders 5 en `apps/web/data/commercial.js`; el catálogo de soluciones permanece en `apps/web/data/catalog.js`. Jalea Portfolio cuesta S/ 480, Jalea Negocio S/ 920 y Jalea Business S/ 1,600. Apps y sistemas personalizados se ofrecen únicamente bajo cotización. Dominio, hosting y mantenimiento se cotizan aparte.
 
 Contacto único en `apps/web/data/contact.js`: +51 938 888 511. El formulario genera una vista previa local, permite copiar y abre WhatsApp por acción explícita; no envía automáticamente ni guarda leads.
 

@@ -1,3 +1,5 @@
+import { customSoftwareOffer, webPackages } from './commercial.js';
+
 export const solutions = [
   {
     id: 'campus-planner',
@@ -19,7 +21,7 @@ export const solutions = [
       'Copia y restauración local',
     ],
     customization: ['Colores y nombre', 'Campos por carrera', 'Organización del semestre'],
-    price: 'Desde S/ 350',
+    price: customSoftwareOffer.price,
     time: '1–2 semanas',
     status: 'Demo disponible',
   },
@@ -43,7 +45,7 @@ export const solutions = [
       'Reportes exportables',
     ],
     customization: ['Escala de notas', 'Formato de reportes', 'Identidad de la academia'],
-    price: 'Desde S/ 650',
+    price: customSoftwareOffer.price,
     time: '2–3 semanas',
     status: 'Desarrollo a medida',
   },
@@ -67,7 +69,7 @@ export const solutions = [
       'Copias de seguridad',
     ],
     customization: ['Ficha de atención', 'Servicios', 'Colores y marca'],
-    price: 'Desde S/ 750',
+    price: customSoftwareOffer.price,
     time: '2–4 semanas',
     status: 'Desarrollo a medida',
   },
@@ -91,7 +93,7 @@ export const solutions = [
       'Historial y cancelaciones',
     ],
     customization: ['Duración de servicios', 'Estados de reserva', 'Marca del negocio'],
-    price: 'Desde S/ 450',
+    price: customSoftwareOffer.price,
     time: '1–3 semanas',
     status: 'Desarrollo a medida',
   },
@@ -116,7 +118,7 @@ export const solutions = [
       'Alertas de stock y reportes',
     ],
     customization: ['Unidades y categorías', 'Campos de producto', 'Formatos de reporte'],
-    price: 'Desde S/ 700',
+    price: customSoftwareOffer.price,
     time: '2–4 semanas',
     status: 'Desarrollo a medida',
   },
@@ -141,7 +143,7 @@ export const solutions = [
       'Exportación de resultados',
     ],
     customization: ['Datos de inscripción', 'Identidad del evento', 'Formato de constancias'],
-    price: 'Desde S/ 600',
+    price: customSoftwareOffer.price,
     time: '2–3 semanas',
     status: 'Desarrollo a medida',
   },
@@ -165,7 +167,7 @@ export const solutions = [
       'Búsqueda y filtros',
     ],
     customization: ['Flujo de estados', 'Tipos de documento', 'Campos y reportes'],
-    price: 'Desde S/ 800',
+    price: customSoftwareOffer.price,
     time: '3–4 semanas',
     status: 'Desarrollo a medida',
   },
@@ -189,35 +191,16 @@ export const solutions = [
       'Plan de mejoras',
     ],
     customization: ['Alcance y módulos', 'Diseño y marca', 'Integraciones cotizadas aparte'],
-    price: 'Según alcance',
+    price: customSoftwareOffer.price,
     time: 'Desde 3 semanas',
     status: 'Cotización a medida',
   },
 ];
 
-// Referencias editoriales únicas para las ofertas de entrada.
-export const offers = [
-  {
-    id: 'web-negocio',
-    name: 'Web para tu negocio',
-    price: 'Desde S/ 300',
-    platform: 'Web informativa',
-    segment: 'Negocios',
-    description:
-      'Web diseñada para tu marca y para móviles, con servicios o productos, contacto y WhatsApp.',
-    scope: 'Dominio y hosting externos no incluidos salvo acuerdo.',
-  },
-  {
-    id: 'portafolio-universitario',
-    name: 'Portafolio universitario',
-    price: 'Solicitar cotización',
-    platform: 'Web informativa',
-    segment: 'Universitarios',
-    description: 'Portafolio con diseño propio, presentación, proyectos, habilidades y contacto.',
-    scope: 'El cliente proporciona el contenido. Definimos juntos las secciones y el alcance.',
-  },
-];
-export const androidPrice = solutions.find((s) => s.id === 'campus-planner').price;
+export const offers = webPackages.map((webPackage) => ({
+  ...webPackage,
+  platform: 'Web informativa',
+}));
 export function filterSolutions(filter = 'Destacadas') {
   return solutions.filter(
     (s) =>

@@ -3,6 +3,12 @@ import assert from 'node:assert/strict';
 import { solutions, offers, filterSolutions } from '../apps/web/data/catalog.js';
 import { requestMessage } from '../apps/web/lib/request.js';
 import { whatsappUrl } from '../apps/web/data/contact.js';
+import {
+  customSoftwareOffer,
+  founders5,
+  foundersMessage,
+  webPackages,
+} from '../apps/web/data/commercial.js';
 test('every product has a complete unique commercial record', () => {
   assert.equal(solutions.length, 8);
   assert.equal(new Set(solutions.map((s) => s.id)).size, 8);
@@ -60,9 +66,27 @@ test('editorial filters preserve categories and distinguish demo from proposals'
   assert.ok(filterSolutions().every((s) => s.featured));
   assert.equal(solutions.filter((s) => s.status === 'Demo disponible').length, 1);
   assert.equal(solutions.find((s) => s.id === 'campus-planner').category, 'Estudiantes');
-  assert.equal(offers.find((s) => s.id === 'web-negocio').price, 'Desde S/ 300');
-  assert.equal(
-    offers.find((s) => s.id === 'portafolio-universitario').price,
-    'Solicitar cotización',
+  assert.deepEqual(
+    offers.map(({ id, price, promotionalPrice }) => ({ id, price, promotionalPrice })),
+    [
+      { id: 'jalea-portfolio', price: 480, promotionalPrice: 360 },
+      { id: 'jalea-negocio', price: 920, promotionalPrice: 690 },
+      { id: 'jalea-business', price: 1600, promotionalPrice: 1200 },
+    ],
   );
+});
+
+test('Founders 5 configuration centralizes availability, terms and package messages', () => {
+  assert.equal(founders5.projectLimit, 5);
+  assert.equal(founders5.discount, 25);
+  assert.equal(founders5.availableSpots, null);
+  assert.equal(webPackages.length, 3);
+  assert.ok(founders5.terms.some((term) => term.includes('50 %')));
+  assert.ok(founders5.terms.some((term) => term.includes('mantenimiento')));
+  for (const webPackage of webPackages) {
+    const message = foundersMessage(webPackage.name);
+    assert.ok(message.includes(webPackage.name));
+    assert.equal(new URL(whatsappUrl(message)).searchParams.get('text'), message);
+  }
+  assert.ok(solutions.every((solution) => solution.price === customSoftwareOffer.price));
 });
