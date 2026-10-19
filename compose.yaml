@@ -1,0 +1,17 @@
+name: jaleasec
+services:
+  web:
+    build: .
+    image: jaleasec-web:${RELEASE_COMMIT:-local}
+    restart: unless-stopped
+    ports:
+      - '80:80'
+    networks:
+      public:
+        aliases:
+          - jaleasec-web
+    security_opt:
+      - no-new-privileges:true
+networks:
+  public:
+    name: jaleasec-public

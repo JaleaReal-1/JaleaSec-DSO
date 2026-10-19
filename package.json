@@ -1,0 +1,21 @@
+{
+  "name": "jaleasec-dso",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/mobile/campus-planner"
+  ],
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "npm run build --workspace @jaleasec/campus-planner && node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "android:sync": "npm run android:sync --workspace @jaleasec/campus-planner"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "appId": "pe.jaleasec.campusplanner",
+  "appName": "Campus Planner",
+  "webDir": "dist",
+  "android": { "allowMixedContent": false }
+}
