@@ -3,8 +3,20 @@ import { solutions, offers, filterSolutions } from './data/catalog.js';
 import { customSoftwareOffer, formatSoles, founders5, foundersMessage } from './data/commercial.js';
 import { whatsappUrl } from './data/contact.js';
 import { requestMessage } from './lib/request.js';
+const header = document.querySelector('.header');
+if (header && founders5.active) {
+  const promotionBar = document.createElement('aside');
+  promotionBar.className = 'promotion-bar';
+  promotionBar.setAttribute('aria-label', 'Promoción JaleaSec Founders 5');
+  const isHome = location.pathname.endsWith('/') || location.pathname.endsWith('/index.html');
+  const availability = Number.isInteger(founders5.availableSpots)
+    ? `<strong>${founders5.availableSpots} cupos disponibles</strong><span aria-hidden="true">·</span>`
+    : '';
+  promotionBar.innerHTML = `<a href="${isHome ? '#founders-promotion' : './#founders-promotion'}"><span class="promotion-label">FOUNDERS 5</span><span aria-hidden="true">·</span><strong>${founders5.discount} % de descuento</strong><span aria-hidden="true">·</span><span class="promotion-detail">Promoción limitada a ${founders5.projectLimit} proyectos web</span><span aria-hidden="true">·</span>${availability}<span class="promotion-action">Ver paquetes ↗</span></a>`;
+  header.prepend(promotionBar);
+}
 const menu = document.querySelector('.menu-toggle');
-if (menu) document.querySelector('.header')?.classList.add('menu-ready');
+if (menu) header?.classList.add('menu-ready');
 menu?.addEventListener('click', () => {
   const expanded = menu.getAttribute('aria-expanded') !== 'true';
   menu.setAttribute('aria-expanded', String(expanded));

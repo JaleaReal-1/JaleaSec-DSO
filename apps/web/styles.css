@@ -29,7 +29,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 112px;
+  scroll-padding-top: 152px;
 }
 body {
   position: relative;
@@ -173,6 +173,37 @@ p {
   z-index: 30;
   background: #0d0d19f5;
   border-bottom: 1px solid var(--line);
+}
+.promotion-bar {
+  background: linear-gradient(90deg, var(--violet), var(--coral));
+  color: #251c38;
+  border-bottom: 1px solid #ffffff38;
+}
+.promotion-bar a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 38px;
+  width: min(100% - 32px, 1180px);
+  margin-inline: auto;
+  color: inherit;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: center;
+}
+.promotion-label {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #251c38;
+  color: #fff7ec;
+  font: 10px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+}
+.promotion-action {
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .nav {
   min-height: 94px;
@@ -961,7 +992,7 @@ p {
 }
 .request-copy {
   position: sticky;
-  top: 130px;
+  top: 160px;
 }
 .request-copy > p:not(.eyebrow) {
   margin-top: 26px;
@@ -1155,7 +1186,7 @@ form > .button {
 .detail-aside {
   align-self: start;
   position: sticky;
-  top: 130px;
+  top: 160px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 32px;
@@ -1359,6 +1390,19 @@ footer {
   }
   body {
     font-size: 16px;
+  }
+  .promotion-bar a {
+    min-height: 44px;
+    gap: 7px;
+    font-size: 11px;
+  }
+  .promotion-detail,
+  .promotion-bar a > span[aria-hidden='true'] {
+    display: none;
+  }
+  .promotion-label,
+  .promotion-action {
+    display: inline-flex;
   }
   .nav {
     min-height: 76px;

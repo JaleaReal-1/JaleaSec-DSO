@@ -77,6 +77,7 @@ test('editorial filters preserve categories and distinguish demo from proposals'
 });
 
 test('Founders 5 configuration centralizes availability, terms and package messages', () => {
+  assert.equal(founders5.active, true);
   assert.equal(founders5.projectLimit, 5);
   assert.equal(founders5.discount, 25);
   assert.equal(founders5.availableSpots, null);
