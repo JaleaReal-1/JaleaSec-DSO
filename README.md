@@ -27,7 +27,7 @@ La guía para crear el proyecto Pages y transferir el dominio está en [Migraci�
 ## Estructura
 
 - `apps/web/`: seis páginas comerciales HTML/CSS/JS nativo, catálogo, contacto y mensajes.
-- `apps/web/assets/jaleasec.svg` y `apps/web/favicon.svg`: identidad actual.
+- `apps/web/assets/jaleasec-mark.png` y `apps/web/favicon.png`: identidad visual actual.
 - `apps/mobile/campus-planner/`: demo individual offline, Vite y Capacitor 8.
 - `packages/core/`: dominio, validación de copias y CSV.
 - `tests/`: pruebas comerciales, navegación, dominio y migración de preferencias.
