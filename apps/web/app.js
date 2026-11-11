@@ -1,20 +1,9 @@
-import { revealSections } from './lib/reveal.js';
+import { setupMotion } from './lib/motion.js';
 import { solutions, offers, filterSolutions } from './data/catalog.js';
-import { customSoftwareOffer, formatSoles, founders5, foundersMessage } from './data/commercial.js';
+import { webOffer } from './data/commercial.js';
 import { whatsappUrl } from './data/contact.js';
 import { requestMessage } from './lib/request.js';
 const header = document.querySelector('.header');
-if (header && founders5.active) {
-  const promotionBar = document.createElement('aside');
-  promotionBar.className = 'promotion-bar';
-  promotionBar.setAttribute('aria-label', 'Promoción JaleaSec Founders 5');
-  const isHome = location.pathname.endsWith('/') || location.pathname.endsWith('/index.html');
-  const availability = Number.isInteger(founders5.availableSpots)
-    ? `<strong>${founders5.availableSpots} cupos disponibles</strong><span aria-hidden="true">·</span>`
-    : '';
-  promotionBar.innerHTML = `<a href="${isHome ? '#founders-promotion' : './#founders-promotion'}"><span class="promotion-label">FOUNDERS 5</span><span aria-hidden="true">·</span><strong>${founders5.discount} % de descuento</strong><span aria-hidden="true">·</span><span class="promotion-detail">Promoción limitada a ${founders5.projectLimit} proyectos web</span><span aria-hidden="true">·</span>${availability}<span class="promotion-action">Ver paquetes ↗</span></a>`;
-  header.prepend(promotionBar);
-}
 const menu = document.querySelector('.menu-toggle');
 if (menu) header?.classList.add('menu-ready');
 menu?.addEventListener('click', () => {
@@ -62,57 +51,9 @@ if (catalog) {
     }),
   );
 }
-const offerRoot = document.querySelector('#initial-offers');
-if (offerRoot) {
-  for (const offer of offers.filter(
-    (o) => !offerRoot.dataset.segment || o.segment === offerRoot.dataset.segment,
-  )) {
-    const card = document.createElement('article');
-    card.className = 'service';
-    const price = founders5.active
-      ? `<span class="price-stack"><small>Precio normal <s>${formatSoles(offer.price)}</s></small><strong>${formatSoles(offer.promotionalPrice)}</strong><small>Founders 5 · ${founders5.discount} % de descuento</small></span>`
-      : `<span class="price-stack"><strong>${formatSoles(offer.price)}</strong></span>`;
-    const cta = founders5.active
-      ? `<a class="button founders-whatsapp" href="${whatsappUrl(foundersMessage(offer.name))}" target="_blank" rel="noopener">Quiero acceder a Founders 5 ↗</a>`
-      : `<a class="button" href="./?solution=${offer.id}#solicitud">Consultar paquete ↗</a>`;
-    card.innerHTML = `<p class="eyebrow">PAQUETE WEB · ${offer.segment}</p><h3>${offer.name}</h3><p>${offer.description}</p><div class="service-footer">${price}</div>${cta}`;
-    offerRoot.append(card);
-  }
-}
-document.querySelectorAll('[data-custom-software-price]').forEach((el) => {
-  el.textContent = customSoftwareOffer.price;
+document.querySelectorAll('[data-starting-price]').forEach((el) => {
+  el.textContent = webOffer.label;
 });
-document.querySelectorAll('[data-founders-only]').forEach((el) => {
-  el.hidden = !founders5.active;
-});
-document.querySelectorAll('[data-standard-only]').forEach((el) => {
-  el.hidden = founders5.active;
-});
-
-const promotionRoot = document.querySelector('#founders-promotion');
-if (promotionRoot) {
-  promotionRoot.hidden = !founders5.active;
-  if (founders5.active) {
-    const availability = promotionRoot.querySelector('[data-founders-availability]');
-    if (availability && Number.isInteger(founders5.availableSpots)) {
-      availability.textContent = `${founders5.availableSpots} de ${founders5.projectLimit} cupos disponibles`;
-      availability.hidden = false;
-    }
-    const packagesRoot = promotionRoot.querySelector('[data-founders-packages]');
-    for (const offer of offers) {
-      const card = document.createElement('article');
-      card.className = 'founders-card';
-      card.innerHTML = `<p class="eyebrow">${offer.segment}</p><h3>${offer.name}</h3><p>${offer.description}</p><div class="founders-price"><s>${formatSoles(offer.price)}</s><strong>${formatSoles(offer.promotionalPrice)}</strong></div><a class="button founders-whatsapp" href="${whatsappUrl(foundersMessage(offer.name))}" target="_blank" rel="noopener">Quiero acceder a Founders 5 ↗</a>`;
-      packagesRoot.append(card);
-    }
-    const termsRoot = promotionRoot.querySelector('[data-founders-terms]');
-    for (const term of founders5.terms) {
-      const item = document.createElement('li');
-      item.textContent = term;
-      termsRoot.append(item);
-    }
-  }
-}
 const select = document.querySelector('#solution-select');
 const platform = document.querySelector('#platform-select');
 if (select) {
@@ -130,18 +71,6 @@ if (select) {
       clientType.value = selected.segment === 'Negocios' ? 'Negocio' : 'Universitario';
   }
 }
-document.querySelectorAll('[data-platform]').forEach((a) =>
-  a.addEventListener('click', () => {
-    if (platform) platform.value = a.dataset.platform;
-    if (select)
-      select.value =
-        a.dataset.platform === 'App Android'
-          ? 'Campus Planner'
-          : a.dataset.platform === 'Ambas'
-            ? 'Desarrollo personalizado'
-            : 'Web para tu negocio';
-  }),
-);
 menu?.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     menu.setAttribute('aria-expanded', 'false');
@@ -200,4 +129,6 @@ document.querySelector('#copy-request')?.addEventListener('click', async () => {
 });
 document.querySelector('#year')?.replaceChildren(String(new Date().getFullYear()));
 
-revealSections();
+// Enable only after submit interception is ready: without JS, no form data enters a URL.
+form?.querySelector('fieldset')?.removeAttribute('disabled');
+setupMotion();

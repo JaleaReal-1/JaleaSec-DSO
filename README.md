@@ -1,6 +1,6 @@
 # JaleaSec
 
-Desarrollo de software a medida para negocios y universitarios de Juliaca, Perú. Marca digital independiente, atención online y proyectos con diseño e identidad propios. Hoy se ofrecen webs, portafolios, apps Android y sistemas pequeños; no servicios de ciberseguridad.
+Desarrollo de software a medida para negocios y universitarios. Marca digital independiente, atención remota y proyectos con diseño e identidad propios. Podemos conversar con clientes de distintos lugares, también de otros países. Hoy se ofrecen webs, portafolios, apps Android y sistemas pequeños; no servicios de ciberseguridad.
 
 Repositorio: https://github.com/JaleaReal-1/JaleaSec-DSO
 Dominio del propietario: https://jaleasec.tech
@@ -36,7 +36,9 @@ La guía para crear el proyecto Pages y transferir el dominio está en [Migraci�
 
 ## Oferta y contacto
 
-Paquetes, precios y promoción Founders 5 en `apps/web/data/commercial.js`; el catálogo de soluciones permanece en `apps/web/data/catalog.js`. Jalea Portfolio cuesta S/ 480, Jalea Negocio S/ 920 y Jalea Business S/ 1,600. Apps y sistemas personalizados se ofrecen únicamente bajo cotización. Dominio, hosting y mantenimiento se cotizan aparte.
+La oferta pública muestra un único precio de entrada para páginas web: **Desde S/ 599**, en soles peruanos (PEN). El precio final depende del alcance acordado. La configuración está en `apps/web/data/commercial.js`; el catálogo permanece en `apps/web/data/catalog.js`. Jalea Portfolio, Jalea Negocio y Jalea Business conservan sus alcances e identificadores, sin precios individuales publicados. Apps y sistemas personalizados se ofrecen únicamente bajo cotización. Dominio, hosting y mantenimiento se cotizan aparte. El adelanto es del 50 % del precio acordado para confirmar el proyecto.
+
+El diseño editorial usa el prototipo aprobado: fondo cálido, ilustraciones locales y una maqueta vinculada al scroll. En móvil, pantallas de poca altura y movimiento reducido, la escena permanece en el flujo normal. Los enlaces y el contenido principal son utilizables sin JavaScript; la ficha dinámica, los filtros y la vista previa del formulario requieren JavaScript. Las fuentes DM Sans y Space Grotesk se sirven localmente, con sus licencias en `apps/web/assets/fonts/`.
 
 Contacto único en `apps/web/data/contact.js`: +51 938 888 511. El formulario genera una vista previa local, permite copiar y abre WhatsApp por acción explícita; no envía automáticamente ni guarda leads.
 

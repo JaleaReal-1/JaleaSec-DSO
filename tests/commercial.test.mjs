@@ -3,12 +3,7 @@ import assert from 'node:assert/strict';
 import { solutions, offers, filterSolutions } from '../apps/web/data/catalog.js';
 import { requestMessage } from '../apps/web/lib/request.js';
 import { whatsappUrl } from '../apps/web/data/contact.js';
-import {
-  customSoftwareOffer,
-  founders5,
-  foundersMessage,
-  webPackages,
-} from '../apps/web/data/commercial.js';
+import { customSoftwareOffer, webOffer, webPackages } from '../apps/web/data/commercial.js';
 test('every product has a complete unique commercial record', () => {
   assert.equal(solutions.length, 8);
   assert.equal(new Set(solutions.map((s) => s.id)).size, 8);
@@ -44,13 +39,13 @@ test('first contact omits empty optional fields and preserves accents and newlin
   const message = requestMessage({
     name: ' Lucía ',
     clientType: 'Negocio',
-    problem: 'Página & catálogo?\nJuliaca',
+    problem: 'Página & catálogo?\nAtención remota',
     budget: '   ',
     consent: 'on',
   });
   assert.equal(
     message,
-    'Hola, JaleaSec. Quisiera una cotización.\n\nNombre: Lucía\nTipo de cliente: Negocio\nProblema: Página & catálogo?\nJuliaca',
+    'Hola, JaleaSec. Quisiera una cotización.\n\nNombre: Lucía\nTipo de cliente: Negocio\nProblema: Página & catálogo?\nAtención remota',
   );
   assert.equal(new URL(whatsappUrl(message)).searchParams.get('text'), message);
   assert.ok(!message.includes('Por definir'));
@@ -67,27 +62,22 @@ test('editorial filters preserve categories and distinguish demo from proposals'
   assert.equal(solutions.filter((s) => s.status === 'Demo disponible').length, 1);
   assert.equal(solutions.find((s) => s.id === 'campus-planner').category, 'Estudiantes');
   assert.deepEqual(
-    offers.map(({ id, price, promotionalPrice }) => ({ id, price, promotionalPrice })),
-    [
-      { id: 'jalea-portfolio', price: 480, promotionalPrice: 360 },
-      { id: 'jalea-negocio', price: 920, promotionalPrice: 690 },
-      { id: 'jalea-business', price: 1600, promotionalPrice: 1200 },
-    ],
+    offers.map(({ id }) => id),
+    ['jalea-portfolio', 'jalea-negocio', 'jalea-business'],
   );
 });
 
-test('Founders 5 configuration centralizes availability, terms and package messages', () => {
-  assert.equal(founders5.active, true);
-  assert.equal(founders5.projectLimit, 5);
-  assert.equal(founders5.discount, 25);
-  assert.equal(founders5.availableSpots, null);
+test('one starting web price preserves package scopes and custom software quotation', () => {
+  assert.equal(webOffer.startingPrice, 599);
+  assert.equal(webOffer.currency, 'PEN');
+  assert.equal(webOffer.label, 'Desde S/ 599');
   assert.equal(webPackages.length, 3);
-  assert.ok(founders5.terms.some((term) => term.includes('50 %')));
-  assert.ok(founders5.terms.some((term) => term.includes('mantenimiento')));
+  assert.ok(webOffer.terms.some((term) => term.includes('50 %')));
+  assert.ok(webOffer.terms.some((term) => term.includes('mantenimiento')));
   for (const webPackage of webPackages) {
-    const message = foundersMessage(webPackage.name);
-    assert.ok(message.includes(webPackage.name));
-    assert.equal(new URL(whatsappUrl(message)).searchParams.get('text'), message);
+    assert.ok(webPackage.description.includes('revisi'));
+    assert.equal('price' in webPackage, false);
+    assert.equal('promotionalPrice' in webPackage, false);
   }
   assert.ok(solutions.every((solution) => solution.price === customSoftwareOffer.price));
 });
